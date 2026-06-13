@@ -1,1 +1,0 @@
-// SCREAMING_CASE consts and all related configuration elements.
