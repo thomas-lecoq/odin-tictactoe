@@ -1,0 +1,7 @@
+html {
+  font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
+}
+
+article, main, p {
+  max-inline-size: 66ch;
+}
