@@ -9,12 +9,12 @@ export function createGameBoard() {
     );
 
     const getBoard = () => board;
-    const getCell = (rowIdx, colIdx) => board[rowIdx][colIdx];
-    const setCell = (rowIdx, colIdx, symbol) => {
+    const getCell = (row, col) => board[row][col];
+    const setCell = ({ row, col, symbol }) => {
         // if the cell is already taken, stop the operation
-        if (getCell(rowIdx, colIdx) !== null) return;
+        if (getCell(row, col) !== null) return;
         // set the symbol for a defined cell
-        board[rowIdx][colIdx] = symbol;
+        board[row][col] = symbol;
     }
 
     return { getBoard, setCell }
