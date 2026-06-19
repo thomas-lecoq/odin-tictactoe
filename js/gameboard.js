@@ -8,7 +8,7 @@ export function createGameBoard() {
         Array.from({length: nCols}, () => null)
     );
 
-    const getBoard = () => board;
+    const getBoard = () => board.map(row => [...row]);
     const getCell = (row, col) => board[row][col];
     const setCell = ({ row, col, symbol }) => {
         // if the cell is already taken, stop the operation
@@ -17,5 +17,5 @@ export function createGameBoard() {
         board[row][col] = symbol;
     }
 
-    return { getBoard, setCell }
+    return { getBoard, getCell, setCell }
 }
