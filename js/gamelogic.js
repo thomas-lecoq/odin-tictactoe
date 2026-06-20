@@ -34,7 +34,7 @@ export function playGame() {
     const playerSelector = ((maxPlayers = players.length) => {
         let playerIndex = 0;
 
-        const switchTurn = () => {playerIndex = playerIndex >= maxPlayers - 1 ? 0 : playerIndex++};
+        const switchTurn = () => {playerIndex = playerIndex >= maxPlayers - 1 ? 0 : playerIndex + 1};
         const getCurrentPlayerIndex = () => playerIndex;
 
         return { switchTurn, getCurrentPlayerIndex };
@@ -44,9 +44,11 @@ export function playGame() {
     console.log(board.getBoard()); // first board display
     while (true) {
         const activePlayer = players[playerSelector.getCurrentPlayerIndex()];
-        // take player move and place it on board
-        const move = activePlayer.playMove(); // can also erase existing symbol, to fix
-        board.setCell(move);
+        // keep asking the active player until they pick a free cell
+        let move;
+        do {
+            move = activePlayer.playMove();
+        } while (!board.setCell(move));
         // display last board state
         console.log(board.getBoard());
         // check winning figure for current player
