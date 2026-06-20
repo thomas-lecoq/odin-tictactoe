@@ -3,9 +3,10 @@ import { createPlayerRegistry } from "./players.js";
 import { createGameBoard } from "./gameboard.js";
 
 function init() {
-    const players = createPlayerRegistry();
-
+    const playerRegistry = createPlayerRegistry()
+    const players = playerRegistry.getPlayers();
     const board = createGameBoard();
+
     // simulate a game
     console.log(board.getBoard());
     board.setCell(players[0].playMove(0, 0));

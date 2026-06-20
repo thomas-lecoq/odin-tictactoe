@@ -7,8 +7,11 @@ export function createPlayerRegistry() {
     const players = [];
 
     const createPlayer = (name, symbol) => {
+        let hasWon;
         const playMove = (row, col) => ({ row, col, symbol });
-        return { name, symbol, playMove }
+        const setWinner = () => (hasWon = true);
+        const getWinner = () => hasWon;
+        return { name, symbol, setWinner, getWinner, playMove }
     }
 
     const addPlayer = (name, symbol) => {
@@ -31,6 +34,9 @@ export function createPlayerRegistry() {
 
     const getPlayers = () => players;
 
+    // check for winning players
+    const checkForWinner = () => players.find(p => p.getWinner() === true);
+
     // Force player declaration on playerRegistry init :
     for (let playerCount = 0; playerCount < maxPlayers; playerCount++ ) {
         const name = prompt(`Declare player ${playerCount + 1} name:`);
@@ -38,5 +44,6 @@ export function createPlayerRegistry() {
         addPlayer(capitalizeFirstLetter(name), symbol);
     }
 
-    return getPlayers();
+    return { getPlayers, checkForWinner };
   }
+  
