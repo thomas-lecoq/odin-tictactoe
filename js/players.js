@@ -8,9 +8,15 @@ export function createPlayerRegistry() {
 
     const createPlayer = (name, symbol) => {
         let hasWon;
-        const playMove = (row, col) => ({ row, col, symbol });
+        const playMove = () => {
+            const row = Number(prompt(`${name} - type row index`));
+            const col = Number(prompt(`${name} - type col index`));
+
+            return { row, col, symbol }
+        };
         const setWinner = () => (hasWon = true);
         const getWinner = () => hasWon;
+
         return { name, symbol, setWinner, getWinner, playMove }
     }
 
