@@ -1,6 +1,8 @@
 // players related logic
 
-function createPlayerRegistry() {
+import { capitalizeFirstLetter } from "./utils.js";
+
+export function createPlayerRegistry() {
     const maxPlayers = 2; // hard cap
     const players = [];
 
@@ -29,7 +31,12 @@ function createPlayerRegistry() {
 
     const getPlayers = () => players;
 
-    return { addPlayer, getPlayers };
-  }
+    // Force player declaration on playerRegistry init :
+    for (let playerCount = 0; playerCount < maxPlayers; playerCount++ ) {
+        const name = prompt(`Declare player ${playerCount + 1} name:`);
+        const symbol = prompt(`Declare player ${playerCount + 1} symbol:`);
+        addPlayer(capitalizeFirstLetter(name), symbol);
+    }
 
-  export { createPlayerRegistry };
+    return getPlayers();
+  }
