@@ -58,14 +58,13 @@ export function playGame() {
         if (checkWinningFigure(board.getBoard(), move.row, move.col, move.symbol)) {
             activePlayer.setWinner();
             continueGame = false;
-        }
-        if (isBoardFull(board.getBoard())) {
-            console.log("No winner: Tie"); // tie declaration - final logic TBD
+        } else if (isBoardFull(board.getBoard())) {
             continueGame = false;
+        } else {
+            playerSelector.switchTurn();
         }
-        playerSelector.switchTurn();
     };
-    // announce winner
+    // announce the outcome once the game is over
     const winner = playerRegistry.checkForWinner();
-    console.log(`${winner.name} won the game`); // winner declaration - final logic TBD
+    console.log(winner ? `${winner.getName()} won the game` : "No winner: Tie"); // final logic TBD
 }

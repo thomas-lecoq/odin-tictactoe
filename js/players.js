@@ -16,8 +16,10 @@ export function createPlayerRegistry() {
         };
         const setWinner = () => (isWinner = true);
         const getWinner = () => isWinner;
+        const getName = () => name;
+        const getSymbol = () => symbol;
 
-        return { name, symbol, setWinner, getWinner, playMove }
+        return { getName, getSymbol, setWinner, getWinner, playMove }
     }
 
     const addPlayer = (name, symbol) => {
@@ -26,11 +28,11 @@ export function createPlayerRegistry() {
             throw new Error(`max player count (${maxPlayers}) is already reach.`);
         }
         // if a new player is created and match an already taken name, throw error
-        if (players.some(p => p.name === name)) {
+        if (players.some(p => p.getName() === name)) {
             throw new Error(`Player "${name}" already exist.`);
         }
         // if a new player is created and match an already taken symbol, throw error
-        if (players.some(p => p.symbol === symbol)) {
+        if (players.some(p => p.getSymbol() === symbol)) {
             throw new Error(`Player's symbol "${symbol}" is already taken.`);
         }
 
