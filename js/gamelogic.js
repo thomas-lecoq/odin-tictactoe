@@ -41,8 +41,9 @@ export function playGame() {
 
     // Play the game until the board is full or a winner is declared
     let continueGame = true;
+    const endGame = () => continueGame = false;
     console.log(board.getBoard()); // empty board display - TBD
-    while (continueGame) {
+    do {
         /* Until the board is filled of a winner is declared, play the game : 
             ask for a valid move,
             check winning figure after each move,
@@ -57,13 +58,13 @@ export function playGame() {
         console.log(board.getBoard()); // display last board state - TBD
         if (checkWinningFigure(board.getBoard(), move.row, move.col, move.symbol)) {
             activePlayer.setWinner();
-            continueGame = false;
+            endGame();
         } else if (isBoardFull(board.getBoard())) {
-            continueGame = false;
+            endGame();
         } else {
             playerSelector.switchTurn();
         }
-    };
+    } while (continueGame);
     // announce the outcome once the game is over
     const winner = playerRegistry.checkForWinner();
     console.log(winner ? `${winner.getName()} won the game` : "No winner: Tie"); // final logic TBD
