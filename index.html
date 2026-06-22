@@ -13,13 +13,42 @@
             <h1 id="name"><span class="cross-symbol">X</span><span class="circle-symbol">O</span>- TIC TAC TOE -<span class="circle-symbol">O</span><span class="cross-symbol">X</span></h1>
         </div>
         <div id="instructions-ctnr">
-            <p id="instructions">Instructions goes here</p>
+            <p id="instructions">Set players name & symbol !</p>
         </div>
         <div id="game-ctnr">
+            <form id="players-form">
+                <div id="players-declaration-ctnr">
+                    <div id="player-one-ctnr" class="player-ctnr">
+                        <label class="player-name-label" for="player-one">Player 1 name :</label>
+                        <input class="player-name-input" type="text" name="player-one" required maxlength="30">
+                        <label class="player-symbol-label" for="symbol-one">Symbol :</label>
+                        <select class="player-symbol-select" name="symbol-one" required>
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                            <option value="△">△</option>
+                            <option value="★">★</option>
+                            <option value="♥">♥</option>
+                        </select>
+                    </div>
+                    <div id="player-two-ctnr" class="player-ctnr">
+                        <label class="player-name-label" for="player-two">Player 2 name :</label>
+                        <input class="player-name-input" type="text" name="player-two" required maxlength="30">
+                        <label class="player-symbol-label" for="symbol-two">Symbol :</label>
+                        <select class="player-symbol-select" name="symbol-two" required>
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                            <option value="△">△</option>
+                            <option value="★">★</option>
+                            <option value="♥">♥</option>
+                        </select>
+                    </div>
+                </div>
+                <button class=commands-ctnr id="submit-btn" type="submit">Start game</button>
+            </form>
         </div>
-        <div id="commands-ctnr">
+        <!-- <div id="commands-ctnr">
             <p id="commands">commands goes here</p>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>
