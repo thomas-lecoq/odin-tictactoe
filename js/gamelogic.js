@@ -44,7 +44,7 @@ export function playGame() {
     const endGame = () => continueGame = false;
     console.log(board.getBoard()); // empty board display - TBD
     do {
-        /* Until the board is filled of a winner is declared, play the game : 
+        /* Until the board is filled or a winner is declared, play the game : 
             ask for a valid move,
             check winning figure after each move,
             check if the board is filled,
