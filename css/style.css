@@ -67,17 +67,14 @@ body {
     color: var(--retro-black)
 }
 
-#instructions{
+#instructions {
     font-size: 1.3rem;
 }
 
-.commands-ctnr {
+.command-btn {
     grid-row: 5;
     grid-column: 2;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: 2px solid var(--full-green);
     border-radius: var(--radius-strong);
     background-color: whitesmoke;
@@ -86,11 +83,11 @@ body {
     align-self: center;
 }
 
-.cross-symbol {
+.player-one-symbol {
     color:var(--french-ultramarine)
 }
 
-.circle-symbol {
+.player-two-symbol {
     color: var(--digital-red);
 }
 
@@ -119,7 +116,7 @@ body {
 #players-form {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px
 }
 
 #players-declaration-ctnr {
@@ -165,4 +162,26 @@ label {
     color: var(--retro-black);
     border-radius: var(--radius-medium);
     text-align: center;
+}
+
+.board {
+    height: 90%;
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    background-color: whitesmoke;
+    border: 2px solid var(--retro-black);
+}
+
+.cell.player-one-symbol,
+.cell.player-two-symbol {
+    font-size: 3em;
 }

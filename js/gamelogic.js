@@ -3,7 +3,7 @@
 import { createPlayerRegistry } from "./players.js";
 import { createGameBoard } from "./gameboard.js";
 
-export function playGame() {
+export function playGame(playerDeclarations) {
     function checkWinningFigure(board, lastMoveRow, lastMoveCol, symbol) {
         const size = board.length; // board size
         const range = [...board.keys()];
@@ -25,7 +25,7 @@ export function playGame() {
     const isBoardFull = (board) => board.every(row => row.every(cell => cell !== null));
 
     // Init the game
-    const playerRegistry = createPlayerRegistry();
+    const playerRegistry = createPlayerRegistry(playerDeclarations);
     const players = playerRegistry.getPlayers();
     const board = createGameBoard();
 
@@ -39,33 +39,37 @@ export function playGame() {
         return { switchTurn, getCurrentPlayerIndex };
     })();
 
-    // Play the game until the board is full or a winner is declared
-    let continueGame = true;
-    const endGame = () => continueGame = false;
-    console.log(board.getBoard()); // empty board display - TBD
-    do {
-        /* Until the board is filled or a winner is declared, play the game : 
-            ask for a valid move,
-            check winning figure after each move,
-            check if the board is filled,
-            if there is no winner and a cell is free: switch turn.
-        */
-        const activePlayer = players[playerSelector.getCurrentPlayerIndex()];
-        let move;
-        do {
-            move = activePlayer.playMove();
-        } while (!board.setCell(move));
-        console.log(board.getBoard()); // display last board state - TBD
-        if (checkWinningFigure(board.getBoard(), move.row, move.col, move.symbol)) {
+    let isOver = false;
+    const getActivePlayer = () => players[playerSelector.getCurrentPlayerIndex()];
+
+    /* Play a single turn for the active player at (row, col).
+       Returns false when the move is rejected (cell taken or out of bounds
+       or the game is already over) so the active player keeps the turn;
+       otherwise applies the move, updates game state and returns true. */
+    const playTurn = (row, col) => {
+        if (isOver) return false;
+
+        const activePlayer = getActivePlayer();
+        const move = { row, col, symbol: activePlayer.getSymbol() };
+        if (!board.setCell(move)) return false;
+
+        if (checkWinningFigure(board.getBoard(), row, col, move.symbol)) {
             activePlayer.setWinner();
-            endGame();
+            isOver = true;
         } else if (isBoardFull(board.getBoard())) {
-            endGame();
+            isOver = true;
         } else {
             playerSelector.switchTurn();
         }
-    } while (continueGame);
-    // announce the outcome once the game is over
-    const winner = playerRegistry.checkForWinner();
-    console.log(winner ? `${winner.getName()} won the game` : "No winner: Tie"); // final logic TBD
+
+        return true;
+    };
+
+    return {
+        playTurn,
+        getBoard: board.getBoard,
+        getActivePlayer,
+        isOver: () => isOver,
+        getWinner: playerRegistry.checkForWinner,
+    };
 }

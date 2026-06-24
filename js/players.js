@@ -2,24 +2,18 @@
 
 import { capitalizeFirstLetter } from "./utils.js";
 
-export function createPlayerRegistry() {
+export function createPlayerRegistry(declarations) {
     const maxPlayers = 2; // hard cap
     const players = [];
 
     const createPlayer = (name, symbol) => {
         let isWinner = false;
-        const playMove = () => {
-            const row = Number(prompt(`${name} - type row index`));
-            const col = Number(prompt(`${name} - type col index`));
-
-            return { row, col, symbol }
-        };
         const setWinner = () => (isWinner = true);
         const getWinner = () => isWinner;
         const getName = () => name;
         const getSymbol = () => symbol;
 
-        return { getName, getSymbol, setWinner, getWinner, playMove }
+        return { getName, getSymbol, setWinner, getWinner }
     }
 
     const addPlayer = (name, symbol) => {
@@ -45,12 +39,8 @@ export function createPlayerRegistry() {
     // check for winning players
     const checkForWinner = () => players.find(p => p.getWinner() === true);
 
-    // Force player declaration on playerRegistry init :
-    for (let playerCount = 0; playerCount < maxPlayers; playerCount++ ) {
-        const name = prompt(`Declare player ${playerCount + 1} name:`);
-        const symbol = prompt(`Declare player ${playerCount + 1} symbol:`);
-        addPlayer(capitalizeFirstLetter(name), symbol);
-    }
+    // declare every player from the provided { name, symbol } list
+    declarations.forEach(({ name, symbol }) => addPlayer(capitalizeFirstLetter(name), symbol));
 
     return { getPlayers, checkForWinner };
   }

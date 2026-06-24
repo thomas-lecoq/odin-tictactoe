@@ -1,10 +1,4 @@
 // main function
-import { initPlayersForm } from "./ui.js";
-import { playGame } from "./gamelogic.js";
+import { initGame } from "./ui.js";
 
-function init() {
-    initPlayersForm();
-    // playGame();
-}
-
-init();
+initGame();
